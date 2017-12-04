@@ -1,0 +1,6 @@
+# FlareSpecPhot
+I'm in the process of putting my flare-related spectrophotometry and files and codes online - the process I follow is outlined breifly in [Schmidt et al 2014b](https://ui.adsabs.harvard.edu/#abs/2014MmSAI..85..741S/abstract), but has been expanded on as I've continued to work on flares. Essentially, the goal is to figure out how strong a flare is (in flux units) when given a magnitude or a difference in magnitudes. This is most often accurate when  Everything so far is focused covers M0 to L8 dwarfs. 
+
+For now, the only piece online is the construction of quiescent SEDs. I use a combination of the SDSS optical spectroscopic templates, spectra pulled from the [Spex PRISM](http://pono.ucsd.edu/~adam/browndwarfs/spexprism/) and [IRTF Spex](http://irtfweb.ifa.hawaii.edu/~spex/IRTF_Spectral_Library/) spectroscopic libraries, and thermal emission to estimate the SED from 3000A to 12000A, a range which covers photometric bands from *U* and *u* to *z*, *y*, and *J*. Please note that the flux from 3000A-5000A may only be accurate within an order of magnitude - this is typically small compared to the flare flux, so it does not impede flare flux estimation.
+
+Please note that to use these SEDs in any published work, you should cite all the works used to put them together - collected in the .bib file. 
