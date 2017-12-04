@@ -47,9 +47,22 @@ pro makeSED,plot=plot
   w = findgen(900)*10+3000.0D
 
   if keyword_set(plot) then begin
-  plot,[3000,12000],[1e-20,1e-10],/nodata,xstyle=1,ystyle=1,/ylog
+     !p.font=0 
+     !p.thick=3
+     !x.thick=3
+     !y.thick=3
+     loadct,39,/silent
+     
+     set_plot,'ps'
+     device,filename='SED.eps',helvetica=1,xsize=10,$
+            isolatin=1,ysize=7.5,/inches,xoffset=.5,$
+            yoffset=.5,encapsulated=1,/color
+     
+     plot,[3000,12000],[1e-20,1e-11],/nodata,xstyle=1,ystyle=1,/ylog,$
+          xtitle='Wavelength (A)',ytitle='Flux (erg cm!E-2!N s!E-1!N A!E-1!N)',$
+          xtickformat='(i)'
   endif
-
+  
   for i = 0,18 do begin
      
      f = getspec(w,i,'prism/'+fname[where(i eq st2flt(st))],iflux_phot[i],$
@@ -59,10 +72,15 @@ pro makeSED,plot=plot
      for k = 0,n_elements(w)-1 do printf,outf,w[k],f[k]
      free_lun,outf
 
-     if keyword_set(plot) then oplot,w,f,color=230-i*10   
+     if keyword_set(plot) then oplot,w,f,color=230-i*10  
+     if keyword_set(plot) then $
+        xyouts,10000,10^(-16-0.2*i),flt2st(i),color=230-i*10
   endfor
   
-
+  if keyword_set(plot) then begin
+     device,/close
+     set_plot,'x'
+  endif
 
 stop
 end
