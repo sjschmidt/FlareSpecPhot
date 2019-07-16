@@ -65,11 +65,13 @@ pro makeSED,plot=plot
   
   for i = 0,18 do begin
      
-     f = getspec(w,i,'prism/'+fname[where(i eq st2flt(st))],iflux_phot[i],$
+     res = getspec(w,i,'prism/'+fname[where(i eq st2flt(st))],iflux_phot[i],$
                  radius[i],teff[i])
+     f = res[*,0]
+     e = res[*,1]
 
      openw,outf,'txt/' + flt2st(i) + '_SED.txt',/get_lun
-     for k = 0,n_elements(w)-1 do printf,outf,w[k],f[k]
+     for k = 0,n_elements(w)-1 do printf,outf,w[k],f[k],e[k]
      free_lun,outf
 
      if keyword_set(plot) then oplot,w,f,color=230-i*10  
@@ -82,5 +84,4 @@ pro makeSED,plot=plot
      set_plot,'x'
   endif
 
-stop
 end
